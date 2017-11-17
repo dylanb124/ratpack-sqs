@@ -5,6 +5,7 @@ import io.github.resilience4j.ratpack.Resilience4jModule;
 import ratpack.guice.ConfigurableModule;
 import smartthings.ratpack.sqs.internal.consumer.ConsumerManager;
 import smartthings.ratpack.sqs.internal.consumer.SqsManager;
+import smartthings.ratpack.sqs.DefaultSqsService;
 import smartthings.ratpack.sqs.internal.providers.DefaultAmazonSQSProvider;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +26,11 @@ public class SqsModule extends ConfigurableModule<SqsModule.Config> {
 
         OptionalBinder.newOptionalBinder(binder(), AmazonSQSProvider.class)
             .setDefault().to(DefaultAmazonSQSProvider.class);
+        
+        OptionalBinder.newOptionalBinder(binder(), SqsService.class)
+            .setDefault()
+            .to(DefaultSqsService.class);
+        
     }
 
     /**
